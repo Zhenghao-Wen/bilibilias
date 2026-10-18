@@ -61,7 +61,14 @@ truth = "1.4.5"
 coroutines = "1.11.0"
 turbine = "1.2.1"
 okio = "3.18.2"
-kmpNativeCoroutines = "1.0.6"
+kmpNativeCoroutines = "1.0.3"
+# 注意：kmp-nativecoroutines 的 Gradle 插件会在构建脚本类路径上**钉住 kotlin-gradle-plugin**，
+# 从而覆盖本目录里声明的 kotlin 版本。实测各版本要求：
+#   1.0.0 -> KGP 2.3.0 | 1.0.1 -> 2.3.10 | 1.0.2 -> 2.3.20 | 1.0.3 -> 2.3.21
+#   1.0.4 -> 2.4.0    | 1.0.5 -> 2.4.10  | 1.0.6 -> 2.4.20
+# 因此这里必须停在 1.0.3：一旦升到 1.0.4+，实际 Kotlin 会被抬到 2.4.x，
+# 而 KSP（2.3.4）是按 Kotlin 2.3.x 构建的，属于不受支持的组合。
+# 升级本项前，务必先确认有与之匹配的 KSP 版本可用（截至目前 KSP 尚无 2.4.x）。
 buildconfig = "6.0.9"
 
 [libraries]
